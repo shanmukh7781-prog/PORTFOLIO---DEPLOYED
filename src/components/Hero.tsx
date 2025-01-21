@@ -6,8 +6,9 @@ export default function Hero() {
   const [text, setText] = useState('');
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [personalityQuoteIndex, setPersonalityQuoteIndex] = useState(0);
-  const fullText = "E&C Engineer | Cyber Security Analyst | Full Stack Developer";
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+
+  const fullText = "E&C Engineer | Cyber Security Analyst | Full Stack Developer";
 
   const inspirationalQuotes = [
     "Crafting Digital Solutions with Precision",
@@ -97,33 +98,54 @@ export default function Hero() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="min-h-screen flex flex-col justify-center items-center text-center px-4 relative"
+      className="min-h-screen flex flex-col justify-center items-center text-center px-4 relative overflow-hidden"
       style={{
-        background: 'linear-gradient(135deg, #0a192f 0%, #112240 50%, #0a192f 100%)',
-        color: 'white'
+        backgroundColor: '#0A1120',
+        backgroundImage: `
+          radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.2) 2px, transparent 0),
+          radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.2) 2px, transparent 0)
+        `,
+        backgroundSize: '100px 100px',
+        color: 'white',
+        animation: 'subtleFloat 20s ease-in-out infinite'
       }}
     >
-      <div className="container mx-auto px-4 flex flex-col items-center justify-center min-h-screen">
+      <style jsx>{`
+        @keyframes subtleFloat {
+          0%, 100% { background-position: 0px 0px; }
+          50% { background-position: 20px 20px; }
+        }
+        @keyframes gentlePulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+      `}</style>
+      <div className="container mx-auto px-4 flex flex-col items-center justify-center min-h-screen backdrop-blur-sm py-12 sm:py-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto space-y-6 sm:space-y-8"
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-transparent bg-clip-text">
+          <motion.h1 
+            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 text-transparent bg-clip-text"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
             {name}
-          </h1>
+          </motion.h1>
           
           <div className="relative h-[30px] sm:h-[40px] mb-8 overflow-hidden">
             <motion.div
               animate={{ y: currentRoleIndex * -40 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
               className="absolute w-full"
             >
               {roles.map((role, index) => (
                 <div
                   key={index}
-                  className="h-[30px] sm:h-[40px] flex items-center justify-center text-lg sm:text-xl md:text-2xl font-medium text-white/90"
+                  className="h-[30px] sm:h-[40px] flex items-center justify-center text-lg sm:text-xl md:text-2xl font-medium bg-gradient-to-r from-sky-400 via-cyan-400 to-teal-400 text-transparent bg-clip-text"
                 >
                   {role}
                 </div>
@@ -131,49 +153,60 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          <motion.p
-            key={quoteIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="text-lg italic text-cyan-400 mb-8"
-          >
-            "{inspirationalQuotes[quoteIndex]}"
-          </motion.p>
+          <div className="space-y-8">
+            <motion.p
+              key={quoteIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="text-lg sm:text-xl italic bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 text-transparent bg-clip-text font-medium px-4 hover:scale-[1.02] transition-transform duration-300"
+            >
+              "{inspirationalQuotes[quoteIndex]}"
+            </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-6 mb-8"
-          >
-            {socialLinks.map((link, index) => (
-              <motion.a
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/90 hover:text-cyan-400 transition-colors p-2 hover:bg-white/10 rounded-full"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {link.icon}
-              </motion.a>
-            ))}
-          </motion.div>
+            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-20 my-8"></div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="flex flex-wrap justify-center gap-8 py-4"
+            >
+              {socialLinks.map((link, index) => (
+                <motion.a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/90 hover:text-fuchsia-400 transition-all duration-300 p-3 hover:bg-white/5 rounded-full relative group"
+                  whileHover={{ 
+                    scale: 1.1,
+                    transition: { duration: 0.2, ease: "easeOut" }
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-white/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ filter: 'blur(8px)' }}
+                  />
+                  {link.icon}
+                </motion.a>
+              ))}
+            </motion.div>
+            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-20 my-8"></div>
 
-          <motion.div
-            key={personalityQuoteIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-2xl mx-auto px-4"
-          >
-            <p className="text-lg md:text-xl text-gray-300 italic mb-2 leading-relaxed">"{personalityQuotes[personalityQuoteIndex].quote}"</p>
-            <p className="text-sm md:text-base text-cyan-400 font-medium">- {personalityQuotes[personalityQuoteIndex].author}</p>
-          </motion.div>
+            <motion.div
+              key={personalityQuoteIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="text-center max-w-2xl mx-auto px-4 hover:scale-[1.02] transition-transform duration-300"
+            >
+              <p className="text-lg md:text-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-transparent bg-clip-text italic mb-2 leading-relaxed font-medium">"{personalityQuotes[personalityQuoteIndex].quote}"</p>
+              <p className="text-sm md:text-base bg-gradient-to-r from-sky-400 to-blue-400 text-transparent bg-clip-text font-medium">- {personalityQuotes[personalityQuoteIndex].author}</p>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
 
@@ -190,7 +223,7 @@ export default function Hero() {
         >
           <ChevronDown 
             size={32} 
-            className="text-cyan-400 animate-bounce"
+            className="text-fuchsia-400 animate-bounce"
           />
         </motion.div>
       )}
