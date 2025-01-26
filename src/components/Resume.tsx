@@ -12,7 +12,7 @@ export default function Resume() {
 
     // Simulate a download process (you can replace this with actual logic if needed)
     const link = document.createElement('a');
-    link.href = " https://drive.google.com/uc?export=download&id=103EsMgtyuJTeGnI1H08IOzAtFOS_Shn1";
+    link.href = "https://drive.google.com/drive/folders/102P87sa97JIpwrnpnhT_Pkif_SWhiONH?usp=sharing";
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     document.body.appendChild(link);
